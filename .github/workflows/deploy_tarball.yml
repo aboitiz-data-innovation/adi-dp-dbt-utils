@@ -30,7 +30,7 @@ jobs:
             aws_secret_access_key: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
             aws_bucket: aidia-adi-data-products
             source_dir: /tmp/${{ env.TARBALL_NAME }}
-            destination_dir: tmp/${{ env.TARBALL_NAME }}
+            destination_dir: tmp
   
         # env:
         #   AWS_S3_BUCKET: aidia-adi-data-products
