@@ -18,7 +18,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create tarball
-        run: git archive --format=tar.gz -o ./${{ env.TARBALL_NAME }} ${GITHUB_REF_NAME}
+        run: |
+          git archive --format=tar.gz -o ./${{ env.TARBALL_NAME }} ${GITHUB_REF_NAME}
+          ls ${GITHUB_WORKSPACE}
 
       - name: Deploy tarball
         uses: jakejarvis/s3-sync-action@master
