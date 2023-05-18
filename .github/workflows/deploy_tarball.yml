@@ -11,7 +11,7 @@ env:
   TARBALL_PATH: /tmp/adi-dp-dbt-utils.tar.gz
 
 jobs:
-  deploy-vendor-registra:
+  deploy-tarball-to-s3:
     runs-on: self-hosted
     steps:
       - name: Checkout
@@ -19,6 +19,9 @@ jobs:
 
       - name: Create tarball
         run: git archive --format=tar.gz -o ${{ env.TARBALL_PATH }} --prefix=adi-dp-dbt-utils/ ${GITHUB_REF_NAME}
+
+      - name: Check tarball
+        run: ls /tmp
 
       - name: Deploy tarball
         uses: jakejarvis/s3-sync-action@master
@@ -30,4 +33,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-1'
           SOURCE_DIR: ${{ env.TARBALL_PATH }}
-          DEST_DIR: ${{ env.TARBALL_PATH }}
+          DEST_DIR: 'tmp/adi-dp-dbt-utils.tar.gz'
