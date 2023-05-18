@@ -33,6 +33,7 @@
 
   {%- endif %}
 
+  {{ log('Writing the data files to ' ~ location, True) }}
   {{ return(location) }}
 
 {%- endmacro -%}
