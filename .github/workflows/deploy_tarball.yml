@@ -23,7 +23,7 @@ jobs:
       - name: Deploy tarball
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --include ${{ env.TARBALL_NAME }} --exclude * --exact-timestamps --delete
+          args: --include='${{ env.TARBALL_NAME }}' --exclude='*' --exact-timestamps --delete
         env:
           AWS_S3_BUCKET: aidia-adi-data-products
           AWS_ACCESS_KEY_ID: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
