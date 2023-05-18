@@ -19,7 +19,7 @@ jobs:
 
       - name: Create tarball
         run: 
-          git archive --format=tar.gz -o ./tarball/${{ env.TARBALL_NAME }} ${GITHUB_REF_NAME}
+          git archive --format=tar.gz -o ./${{ env.TARBALL_NAME }} ${GITHUB_REF_NAME}
           pwd
           ls
           echo ${GITHUB_WORKSPACE}
@@ -27,11 +27,10 @@ jobs:
       - name: Deploy tarball
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --exact-timestamps --delete
+          args: --include ${{ env.TARBALL_NAME }} --exact-timestamps --delete
         env:
           AWS_S3_BUCKET: aidia-adi-data-products
           AWS_ACCESS_KEY_ID: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-1'
-          SOURCE_DIR: ./tarball
           DEST_DIR: 'tmp'
