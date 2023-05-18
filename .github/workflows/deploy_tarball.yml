@@ -19,7 +19,7 @@ jobs:
 
       - name: Create tarball
         run: |
-          mkdir /tarball
+          sudo mkdir /tarball
           git archive --format=tar.gz -o /tarball/${{ env.TARBALL_NAME }} ${GITHUB_REF_NAME}
 
       - name: Check tarball
