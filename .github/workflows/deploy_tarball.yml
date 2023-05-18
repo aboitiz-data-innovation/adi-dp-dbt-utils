@@ -19,12 +19,9 @@ jobs:
 
       - name: Create tarball
         run: |
-          sudo mkdir /tarball
+          sudo mkdir -p /tarball
           chown -R $USER:$USER /tarball
           git archive --format=tar.gz -o /tarball/${{ env.TARBALL_NAME }} ${GITHUB_REF_NAME}
-
-      - name: Check tarball
-        run: ls /tmp
 
       - name: Deploy tarball
         uses: jakejarvis/s3-sync-action@master
