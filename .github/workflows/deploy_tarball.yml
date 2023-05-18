@@ -18,24 +18,19 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create tarball
-        run: git archive --format=tar.gz -o /tmp/${{ env.TARBALL_NAME }} --prefix=adi-dp-dbt-utils/ ${GITHUB_REF_NAME}
+        run: git archive --format=tar.gz -o ${GITHUB_WORKSPACE}/tarball/${{ env.TARBALL_NAME }} --prefix=adi-dp-dbt-utils/ ${GITHUB_REF_NAME}
 
       - name: Check tarball
         run: ls /tmp
 
       - name: Deploy tarball
-        uses: shallwefootball/s3-upload-action@master
+        uses: jakejarvis/s3-sync-action@master
         with:
-            aws_key_id: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
-            aws_secret_access_key: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
-            aws_bucket: aidia-adi-data-products
-            source_dir: /tmp/${{ env.TARBALL_NAME }}
-            destination_dir: tmp
-  
-        # env:
-        #   AWS_S3_BUCKET: aidia-adi-data-products
-        #   AWS_ACCESS_KEY_ID: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
-        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
-        #   AWS_REGION: 'ap-southeast-1'
-        #   SOURCE_DIR: /tmp/${{ env.TARBALL_NAME }}
-        #   DEST_DIR: 'tmp/${{ env.TARBALL_NAME }}'
+          args: --exact-timestamps --delete
+        env:
+          AWS_S3_BUCKET: aidia-adi-data-products
+          AWS_ACCESS_KEY_ID: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'ap-southeast-1'
+          SOURCE_DIR: ${GITHUB_WORKSPACE}/tarball/${{ env.TARBALL_NAME }}
+          DEST_DIR: 'tmp'
