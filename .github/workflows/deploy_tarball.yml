@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create tarball
-        run: git archive --format=tar.gz -o ${GITHUB_WORKSPACE}/tarball/${{ env.TARBALL_NAME }} ${GITHUB_REF_NAME}
+        run: git archive --format=tar.gz -o /tarball/${{ env.TARBALL_NAME }} ${GITHUB_REF_NAME}
 
       - name: Check tarball
         run: ls /tmp
@@ -32,5 +32,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-1'
-          SOURCE_DIR: ${GITHUB_WORKSPACE}/tarball/${{ env.TARBALL_NAME }}
+          SOURCE_DIR: /tarball/${{ env.TARBALL_NAME }}
           DEST_DIR: 'tmp'
