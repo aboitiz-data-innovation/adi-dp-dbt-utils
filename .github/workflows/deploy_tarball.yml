@@ -21,7 +21,7 @@ jobs:
         with:
           args: --exclude "logs/*" --exclude ".gitignore" --exclude "*.md" --exact-timestamps --delete
         env:
-          AWS_S3_BUCKET: aidia-adi-misc
+          AWS_S3_BUCKET: adi-dp-misc
           AWS_ACCESS_KEY_ID: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-1'
