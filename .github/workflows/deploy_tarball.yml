@@ -19,10 +19,10 @@ jobs:
       - name: Sync to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --exclude "logs/*" --exclude ".gitignore" --exclude "*.md" --exact-timestamps --delete
+          args: --exclude "logs/*" --exclude ".gitignore" --exclude "*.md" --exclude ".git/*" --exclude ".github/*" --exact-timestamps --delete
         env:
           AWS_S3_BUCKET: adi-dp-misc
           AWS_ACCESS_KEY_ID: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DP_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-1'
-          DEST_DIR: 'adi-dp-dbt-utils'
+          DEST_DIR: 'lib/adi-dp-dbt-utils/${GITHUB_REF_NAME}'
