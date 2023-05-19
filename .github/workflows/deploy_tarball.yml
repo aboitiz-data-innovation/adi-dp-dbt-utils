@@ -3,7 +3,7 @@ name: Sync Repo to S3
 on:
   push:
     branches:
-      - "**"
+      - "release/*"
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.DP_AWS_ACCESS_KEY_ID }}
