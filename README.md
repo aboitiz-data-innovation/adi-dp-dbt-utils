@@ -36,11 +36,13 @@ To uninstall dbt packages, run `dbt clean`.
 
 ## Contributing
 
-To contribute to this dbt package, clone the repo, and install the repo as a local package. In your dbt project's `packages.yml` add the following and run `dbt deps`. After you have made changes to the local `adi-dp-dbt-utils` repo, you don't have to run `dbt deps` again because dbt can automatically detects the changes. Just rerun your test or model to validate your work.
+To contribute to this dbt package, clone the repo, and install the repo as a local package. In your dbt project's `packages.yml` add the following and run `dbt deps`.
 
 ```
 packages:
   - local: "/path/to/adi-dp-dbt-utils/adi_dp_dbt_utils"
 ```
+
+> Note: After you have made changes to the local `adi-dp-dbt-utils` repo, you don't have to run `dbt deps` again because dbt can automatically detects the changes. Just rerun your test or model to validate your work.
 
 Refer to this excellent [guide](https://discourse.getdbt.com/t/contributing-to-an-external-dbt-package/657) that explains how to contribute to an external dbt package.
