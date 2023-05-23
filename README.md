@@ -2,6 +2,10 @@
 
 This repository contains the common dbt macros and tests that can be used across the Aboitiz Data Innovation's dbt projects. 
 
+## Dependencies
+
+Some of the dbt macros in this repo uses `dbt_utils` macro. You will need to install the [dbt-utils](https://github.com/dbt-labs/dbt-utils) package as well.
+
 ## Installation
 
 Install `adi_dp_dbt_utils` as a dbt public git package. Add the following to your dbt project's `packages.yml` and run `dbt deps`.

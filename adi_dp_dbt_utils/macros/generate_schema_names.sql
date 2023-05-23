@@ -8,10 +8,10 @@
 
         {%- set folder_structure_schema = '' -%}
 
-        {# we save dbt seeds in the `dbt_seed` schema #}
+        {# we save dbt seeds in the `dbt_seeds` schema #}
         {% if node.resource_type == 'seed' %}
 
-            {% set folder_structure_schema = 'dbt_seed' %}
+            {% set folder_structure_schema = 'dbt_seeds' %}
 
         {% endif %}
 
