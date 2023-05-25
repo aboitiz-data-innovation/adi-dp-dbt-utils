@@ -4,6 +4,7 @@
     and returns it as a list.
 
     example usage:
+    --------------
     {% set col_list = adi_dp_dbt_utils.filter_columns_startswith(
         relation=source('db', 'tbl'),
         startswith='some_str',
