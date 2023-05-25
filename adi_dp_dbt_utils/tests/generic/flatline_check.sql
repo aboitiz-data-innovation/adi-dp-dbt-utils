@@ -47,31 +47,32 @@
         limit {{ consecutive_thresh }}
     {% endset %}
 
-    {% if execute %}
-        {% set sql_statement %}
+    -- only run this block during actual dbt executions, not during dbt compile
+    {% if flags.WHICH != 'compile' %}
+
+        -- raise exception if base query has no rows returned
+        {% set row_cnt_check_sql_statement %}
+            select count(*) from (
+                {{ base_query_str }}
+            )
+        {% endset %}
+        {% set row_cnt = dbt_utils.get_single_value(row_cnt_check_sql_statement) %}
+
+        {% if row_cnt == 0 %}
+            {{ exceptions.raise_compiler_error("Flatline check failed because the model returns no records when filtering for the data for validation. Query: " ~ base_query_str) }}
+        {% endif %}
+
+        -- get distinct values for col_to_check
+        {% set col_to_check_distinct_values_sql_statement %}
             select distinct
                 col_to_check
             from ({{ base_query_str }})
         {% endset %}
-        {% set results = run_query(sql_statement) %}
+        {% set results = run_query(col_to_check_distinct_values_sql_statement) %}
         {% set col_to_check_distinct_values = results.columns[0].values() %}
+
     {% else %}
         {% set col_to_check_distinct_values = [] %}
-    {% endif %}
-
-    -- raise exception if base has no rows returned
-    {% set row_cnt_check_sql_statement %}
-        select count(*) from (
-            {{ base_query_str }}
-        )
-    {% endset %}
-
-    -- only run this block during actual dbt executions, not during dbt compilations
-    {% if execute %}
-        {% set row_cnt = dbt_utils.get_single_value(row_cnt_check_sql_statement) %}
-        {% if row_cnt == 0 %}
-            {{ exceptions.raise_compiler_error("Flatline check failed because the model returns no records when filtering for the data for validation. Query: " ~ base_query_str) }}
-        {% endif %}
     {% endif %}
 
     {% set col_to_check_distinct_values_tuple_str = '(' ~ col_to_check_distinct_values|join(',') ~ ')' %}
