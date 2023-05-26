@@ -48,7 +48,7 @@
     {% endset %}
 
     -- only run this block during actual dbt executions, not during dbt compile
-    {% if flags.WHICH != 'compile' %}
+    {% if flags.WHICH != 'compile' and execute %}
 
         -- raise exception if base query has no rows returned
         {% set row_cnt_check_sql_statement %}
