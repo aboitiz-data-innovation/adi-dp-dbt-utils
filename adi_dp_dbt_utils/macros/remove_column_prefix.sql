@@ -6,6 +6,7 @@
     returns a dict of original_col as key and renamed_col (or not renamed) as value.
 
     example usage:
+    --------------
     {% set cols_renamed_dict = adi_dp_dbt_utils.remove_column_prefix(cols_list, 'some_prefix') %}
 
 {% endcomment %}

@@ -4,7 +4,7 @@ This repository contains the common dbt macros and tests that can be used across
 
 ## Dependencies
 
-Some of the dbt macros in this repo uses `dbt_utils` macro. You will need to install the [dbt-utils](https://github.com/dbt-labs/dbt-utils) package as well.
+Some of the dbt macros in this repo use macros from the `dbt_utils` package. You will need to install the [dbt-utils](https://github.com/dbt-labs/dbt-utils) package as well.
 
 ## Installation
 
