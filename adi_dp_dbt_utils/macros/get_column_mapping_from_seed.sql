@@ -7,6 +7,7 @@
     `original_column_name` and `mapped_column_name`.
 
     example usage:
+    --------------
     {% set column_mapping = adi_dp_dbt_utils.get_column_mapping_from_seed(ref('seed_name')) %}
 
 {% endcomment %}
