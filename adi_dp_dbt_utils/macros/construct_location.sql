@@ -36,8 +36,6 @@
         {%- set location = 's3://' ~ s3_bucket ~ '/' ~ db_name ~ '_' ~ default_schema ~ '/' ~ identifier -%}
       {%- endif -%}
 
-      {{ log(location, True)}}
-
     {%- endif %}
 
   {%- endif %}
