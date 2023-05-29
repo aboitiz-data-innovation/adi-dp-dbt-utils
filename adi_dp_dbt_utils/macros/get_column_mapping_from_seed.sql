@@ -4,7 +4,8 @@
     one column represents the original column name called 'original',
     another column represents the mapped column name called 'mapped'.
     you can override the default column names by passing other values into
-    `original_column_name` and `mapped_column_name`.
+    `original_column_name` and `mapped_column_name`. optionally exclude columns
+    using the `except` arg based on the original column name.
 
     example usage:
     --------------
@@ -12,7 +13,7 @@
 
 {% endcomment %}
 
-{% macro get_column_mapping_from_seed(seed_relation, original_column_name='original', mapped_column_name='mapped') %}
+{% macro get_column_mapping_from_seed(seed_relation, original_column_name='original', mapped_column_name='mapped', except=[]) %}
 
     {% set original_column_name = original_column_name %}
     {% set mapped_column_name = mapped_column_name %}
@@ -25,7 +26,9 @@
 
     {%- set result = {} -%}
     {% for ori, mapped in zip(column_mapping[original_column_name], column_mapping[mapped_column_name]) %}
-        {% set _ = result.update({ori: mapped}) %}
+        {% if ori not in except %}
+            {% set _ = result.update({ori: mapped}) %}
+        {% endif %}
     {% endfor %}
 
     {{ return(result) }}
