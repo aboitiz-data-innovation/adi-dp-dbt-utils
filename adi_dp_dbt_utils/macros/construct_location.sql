@@ -20,7 +20,7 @@
 
       {%- set db_name = fqn[2] -%}
 
-      {%- if target_schema == 'prod' -%}
+      {%- if default_schema == 'prod' -%}
         {%- set location = 's3://' ~ s3_bucket ~ '/' ~ model_layer ~ '/' ~ db_name ~ '/' ~ identifier -%}
       {%- else -%}
         {%- set location = 's3://' ~ s3_bucket ~ '/' ~ model_layer ~ '/' ~ db_name ~ '_' ~ default_schema ~ '/' ~ identifier -%}
@@ -30,11 +30,13 @@
 
       {%- set db_name = 'dbt_seeds' -%}
 
-      {%- if target_schema == 'prod' -%}
+      {%- if default_schema == 'prod' -%}
         {%- set location = 's3://' ~ s3_bucket ~ '/' ~ db_name ~ '/' ~ identifier -%}
       {%- else -%}
         {%- set location = 's3://' ~ s3_bucket ~ '/' ~ db_name ~ '_' ~ default_schema ~ '/' ~ identifier -%}
       {%- endif -%}
+
+      {{ log(location, True)}}
 
     {%- endif %}
 
