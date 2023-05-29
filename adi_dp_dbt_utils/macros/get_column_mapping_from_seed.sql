@@ -4,7 +4,8 @@
     one column represents the original column name called 'original',
     another column represents the mapped column name called 'mapped'.
     you can override the default column names by passing other values into
-    `original_column_name` and `mapped_column_name`.
+    `original_column_name` and `mapped_column_name`. optionally exclude columns
+    using the `except` arg based on the original column name.
 
     example usage:
     --------------
