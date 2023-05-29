@@ -11,7 +11,15 @@
         {# we save dbt seeds in the `dbt_seeds` schema #}
         {% if node.resource_type == 'seed' %}
 
-            {% set folder_structure_schema = 'dbt_seeds' %}
+            {%- if default_schema == 'prod' -%}
+
+                {% set folder_structure_schema = 'dbt_seeds' %}
+
+            {% else %}
+
+                {% set folder_structure_schema = 'dbt_seeds' ~ '_' ~ default_schema | trim %}
+
+            {% endif %}
 
         {% endif %}
 
