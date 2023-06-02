@@ -7,7 +7,7 @@
 
     args:
     -----
-        group_by: a list of other column names to group by
+        group_by: an optional list of other column names to group by
 
     example usage:
     --------------
@@ -17,12 +17,12 @@
         columns:
         - name: some_unique_column_based_on_groups
             tests:
-            - unique:
+            - unique_group_by:
                 group_by: ["some_categorical_column"]
 
 {% endcomment %}
 
-{% test unique(model, column_name, group_by=[]) %}
+{% test unique_group_by(model, column_name, group_by=[]) %}
 
     {% set group_bys_str = ([column_name] + group_by) | join(', ') %}
 
