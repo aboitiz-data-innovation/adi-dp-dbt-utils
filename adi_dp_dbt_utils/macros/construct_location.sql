@@ -16,7 +16,7 @@
 
     {%- set s3_bucket = 'aidia-' ~ catalog|replace("_", "-") -%}
 
-    {%- if model_layer == 'clean' or model_layer == 'inst' -%}
+    {%- if model_layer == 'clean' or model_layer == 'inst' or model_layer == 'mart' -%}
 
       {%- set db_name = fqn[2] -%}
 
