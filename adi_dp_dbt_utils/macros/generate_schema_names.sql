@@ -28,7 +28,7 @@
         {%- set model_layer = node.fqn[1] -%}
         {%- set db_name = node.fqn[2] -%}
 
-        {% if model_layer == 'clean' or model_layer == 'inst' %}
+        {% if model_layer == 'clean' or model_layer == 'inst' or model_layer == 'mart' %}
 
             {%- if default_schema == 'prod' -%}
 
