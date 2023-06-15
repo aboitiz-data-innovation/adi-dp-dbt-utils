@@ -1,5 +1,8 @@
 {% comment %}
 
+    TODO: improve test failure decision logic.
+    see https://docs.getdbt.com/reference/resource-configs/fail_calc
+
     checks if the value of the specified column is flatlining,
     i.e. value does not change for a period of time.
 
