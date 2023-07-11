@@ -1,10 +1,10 @@
 {% macro log_dbt_results(results) %}
-    -- depends_on: {{ ref('dbt_results') }}
+    -- depends_on: {{ ref('dbt_run_results') }}
     {%- if execute -%}
         {%- set parsed_results = adi_dp_dbt_utils.parse_dbt_results(results) -%}
         {%- if parsed_results | length  > 0 -%}
             {% set insert_dbt_results_query -%}
-                insert into {{ ref('dbt_results') }}
+                insert into {{ ref('dbt_run_results') }}
                     (
                         result_id,
                         invocation_id,
