@@ -27,10 +27,11 @@
                     {%- for parsed_result_dict in parsed_results -%}
                         {% set depends_on_nodes = parsed_result_dict.get('depends_on_nodes') %}
                         -- convert jinja2 list to sql array
-                        {%- if depends_on_nodes | length  > 0 -%}
-                            {% set depends_on_nodes_array = 'array' ~ depends_on_nodes|string|replace('[', '(')|replace(']', ')') %}
-                        {% else %}
-                            {% set depends_on_nodes_array = 'array()' %}
+                        {% set depends_on_nodes_array = 'array()' %}
+                        {%- if depends_on_nodes -%}
+                            {%- if depends_on_nodes | length  > 0 -%}
+                                {% set depends_on_nodes_array = 'array' ~ depends_on_nodes|string|replace('[', '(')|replace(']', ')') %}
+                            {% endif %}
                         {% endif %}
 
                         (
