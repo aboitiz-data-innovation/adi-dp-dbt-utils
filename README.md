@@ -34,6 +34,41 @@ Calling a dbt package's macro or test is simple. Just add the dbt package's name
 
 ```
 
+## Macros
+
+Refer to the available [macros](adi_dp_dbt_utils/macros).
+
+## Tests
+
+Refer to the available [tests](adi_dp_dbt_utils/tests).
+
+## Other Features
+
+### Run Results Logging
+
+There is a model called [dbt_run_results](adi_dp_dbt_utils/models/meta/observability/dbt_run_results.sql) which is a table for logging dbt run results. 
+
+Reference: https://medium.com/@oravidov/dbt-observability-101-how-to-monitor-dbt-run-and-test-results-f7e5f270d6b6
+
+#### Add on-run-end hook
+
+In your dbt project, add the following to your `dbt_project.yml`. After each dbt run, the run results will be inserted into the `meta__observability.dbt_run_results` table.
+
+```
+on-run-end:
+  - "{{ adi_dp_dbt_utils.log_dbt_results(results) }}"
+```
+
+#### Initializing the `meta__observability.dbt_run_results` table
+
+In your dbt project, run the following dbt command to initialize the table:
+
+```
+dbt run -m dbt_run_results
+```
+
+Whenever you run your dbt models and tests, the run results will be inserted into this table. If you are on Databricks, this will cause a lot of small files to be generated. Remember to periodically run `OPTIMIZE` on this table for table compaction.
+
 ## Uninstall
 
 To uninstall dbt packages, run `dbt clean`.
@@ -50,3 +85,5 @@ packages:
 > Note: After you have made changes to the local `adi-dp-dbt-utils` repo, you don't have to run `dbt deps` again because dbt can automatically detects the changes. Just rerun your test or model to validate your work.
 
 Refer to this excellent [guide](https://discourse.getdbt.com/t/contributing-to-an-external-dbt-package/657) that explains how to contribute to an external dbt package.
+
+After you have finalized your changes, create a PR and request for review.
