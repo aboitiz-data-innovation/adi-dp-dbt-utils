@@ -36,17 +36,17 @@ Calling a dbt package's macro or test is simple. Just add the dbt package's name
 
 ## Macros
 
-Refer to the available [macros](macros).
+Refer to the available [macros](adi_dp_dbt_utils/macros).
 
 ## Tests
 
-Refer to the available [tests](tests).
+Refer to the available [tests](adi_dp_dbt_utils/tests).
 
 ## Other Features
 
 ### Run Results Logging
 
-There is a model called [dbt_run_results](models/meta/observability/dbt_run_results.sql) which is a table for logging dbt run results. 
+There is a model called [dbt_run_results](adi_dp_dbt_utils/models/meta/observability/dbt_run_results.sql) which is a table for logging dbt run results. 
 
 Reference: https://medium.com/@oravidov/dbt-observability-101-how-to-monitor-dbt-run-and-test-results-f7e5f270d6b6
 
