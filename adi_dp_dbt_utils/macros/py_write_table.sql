@@ -48,12 +48,22 @@ else:
   msg = f"{type(df)} is not a supported type for dbt Python materialization"
   raise Exception(msg)
 
-(
-    df.write
-    .mode("overwrite")
-    .format("delta")
-    .option("overwriteSchema", "true")
-    .option("path", "{{ construct_location() }}")
-    .saveAsTable("{{ target_relation }}")
+{#
+  TODO: upgrade dbt-databricks version when it has proper
+  support for incremental external tables
+#}
+
+writer = (
+  df.write
+  .mode("overwrite")
+  .format("delta")
+  .option("overwriteSchema", "true")
 )
+
+path = "{{ construct_location() }}"
+fq_tbl_name = "{{ target_relation }}"
+if not fq_tbl_name.endswith("__dbt_tmp`"):
+  writer.option("path", path)
+
+writer.saveAsTable(fq_tbl_name)
 {%- endmacro -%}
