@@ -62,7 +62,7 @@ writer = (
 
 path = "{{ construct_location() }}"
 fq_tbl_name = "{{ target_relation }}"
-if not fq_tbl_name.endswith("__dbt_tmp`"):
+if not fq_tbl_name.endswith("__dbt_tmp`"):  # dbt uses the __dbt_tmp suffix for tmp tables
   writer.option("path", path)
 
 writer.saveAsTable(fq_tbl_name)
